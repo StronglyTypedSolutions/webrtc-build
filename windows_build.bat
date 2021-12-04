@@ -6,6 +6,7 @@ set "TOOLS_DIR=%localappdata%\WMP\depot_tools"
 set "BATCH_DIR=%~dp0%"
 set "OLD_PATH=%PATH%"
 set "WEBRTC_BRANCH=m73"
+set GYP_MSVS_VERSION=2019
 
 REM H264 support can only be compiled with clang, not MSVC. 
 REM Downside is source debugging in Visual Studio is not yet suported when using clang :(
@@ -15,8 +16,7 @@ set DEPOT_TOOLS_WIN_TOOLCHAIN=0
 
 if not exist "%TOOLS_DIR%" (
     echo "Installing Google depot tools in %TOOLS_DIR%..."
-
-    powershell "%BATCH_DIR%\install_depot_tools.ps1" -rootPath "%TOOLS_DIR%"
+    call "%BATCH_DIR%\install_depot_tools.bat" "%TOOLS_DIR%"
     if errorlevel 1 goto :error
 ) else (
     echo "Using Google depot tools at %TOOLS_DIR%"
